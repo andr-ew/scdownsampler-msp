@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
                BuildableName = "colloquial~.mxo"
-               BlueprintName = "colloquial~.mxo"
-               ReferencedContainer = "container:colloquial~.xcodeproj">
+               BlueprintName = "scdownsampler~.mxo"
+               ReferencedContainer = "container:scdownsampler~.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -52,13 +52,13 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2FBBEAD608F335360078DB84"
             BuildableName = "colloquial~.mxo"
-            BlueprintName = "colloquial~.mxo"
-            ReferencedContainer = "container:colloquial~.xcodeproj">
+            BlueprintName = "scdownsampler~.mxo"
+            ReferencedContainer = "container:scdownsampler~.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/instrument/Documents/Max\ 8/Packages/max-sdk-8.0.3/source/audio/colloquial\~/colloquial-test.maxpat "
+            argument = "/Users/instrument/Documents/Max\ 8/Packages/max-sdk-8.0.3/source/audio/scdownsampler\~/scdownsampler-test.maxpat "
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
@@ -76,8 +76,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2FBBEAD608F335360078DB84"
             BuildableName = "colloquial~.mxo"
-            BlueprintName = "colloquial~.mxo"
-            ReferencedContainer = "container:colloquial~.xcodeproj">
+            BlueprintName = "scdownsampler~.mxo"
+            ReferencedContainer = "container:scdownsampler~.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

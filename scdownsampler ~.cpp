@@ -19,7 +19,7 @@
 #define BUFSIZE 4
 #define BUFMASK 3
 
-typedef struct _colloquial {
+typedef struct _scdownsampler {
     t_pxobject l_obj;
     
     /// Resampler handles interpolated writing.
@@ -40,21 +40,21 @@ typedef struct _colloquial {
     double phase = 0.0; // current "playback" phase in [0,1]
     double inc; // phase increment per sample;
     
-} t_colloquial;
+} t_scdownsampler;
 
-unsigned int wrapBufIndex(t_colloquial *x, int val) {
+unsigned int wrapBufIndex(t_scdownsampler *x, int val) {
     int y = val;
     return y & BUFMASK;
 }
 
 // write a new value to the buffer, update the index
-void writeToBuf(t_colloquial *x, const double v) {
+void writeToBuf(t_scdownsampler *x, const double v) {
     x->buf[x->idx] = v;
     x->idx = wrapBufIndex(x, x->idx + 1);
 }
 
 // this could use other interpolation modes if you want more dirt.
-double readFromBuf(t_colloquial *x) {
+double readFromBuf(t_scdownsampler *x) {
     // assumptions:
     // - we always read after write, so `idx` will be the _oldest_ location
     // - idx is already wrapped
@@ -69,12 +69,12 @@ double readFromBuf(t_colloquial *x) {
 }
 
 
-void calcRate(t_colloquial *x) {
+void calcRate(t_scdownsampler *x) {
     x->inc = x->rate / x->sr;
     x->resamp.setRate(x->rate);
 }
 
-void setRate(t_colloquial *x, double val) {
+void setRate(t_scdownsampler *x, double val) {
     if (val > 1.f) {
         x->rate = 1.f;
     } else {
@@ -83,7 +83,7 @@ void setRate(t_colloquial *x, double val) {
     calcRate(x);
 }
 
-void setWindow(t_colloquial *x, double val) {
+void setWindow(t_scdownsampler *x, double val) {
     if (val > 256.f) {
         x->window = 256;
     } else if (val < 0.f) {
@@ -93,50 +93,50 @@ void setWindow(t_colloquial *x, double val) {
     }
 }
 
-void setSampleRate(t_colloquial *x, double val) {
+void setSampleRate(t_scdownsampler *x, double val) {
     x->sr = val;
     calcRate(x);
 }
 
 ///////////
 /// methods copied from SDK example
-void colloquial_perform64(t_colloquial *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam);
-void colloquial_dsp64(t_colloquial *x, t_object *dsp64s, short *count, double samplerate, long maxvectorsize, long flags);
-void *colloquial_new();
-void colloquial_free(t_colloquial *x);
-void colloquial_assist(t_colloquial *x, void *b, long m, long a, char *s);
+void scdownsampler_perform64(t_scdownsampler *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam);
+void scdownsampler_dsp64(t_scdownsampler *x, t_object *dsp64s, short *count, double samplerate, long maxvectorsize, long flags);
+void *scdownsampler_new();
+void scdownsampler_free(t_scdownsampler *x);
+void scdownsampler_assist(t_scdownsampler *x, void *b, long m, long a, char *s);
 
 /// input methods
 
-void colloquial_rate(t_colloquial *x, double f)
+void scdownsampler_rate(t_scdownsampler *x, double f)
 {
     setRate(x, f);
 }
 
-void colloquial_window(t_colloquial *x, double f)
+void scdownsampler_window(t_scdownsampler *x, double f)
 {
     setWindow(x, f);
 }
 
-static t_class *colloquial_class;
+static t_class *scdownsampler_class;
 
 void ext_main(void *r)
 {
     // declare class: single float argument
-    t_class *c = class_new("colloquial~", (method)colloquial_new, (method)colloquial_free, sizeof(t_colloquial), 0L, NULL, 0);
+    t_class *c = class_new("scdownsampler~", (method)scdownsampler_new, (method)scdownsampler_free, sizeof(t_scdownsampler), 0L, NULL, 0);
     
     //--- standard max smethods
-    class_addmethod(c, (method)colloquial_dsp64, "dsp64", A_CANT, 0);
-    class_addmethod(c, (method)colloquial_rate, "rate", A_FLOAT, 0);
-    class_addmethod(c, (method)colloquial_window, "window", A_FLOAT, 0);
-    class_addmethod(c, (method)colloquial_assist, "assist", A_CANT, 0);
+    class_addmethod(c, (method)scdownsampler_dsp64, "dsp64", A_CANT, 0);
+    class_addmethod(c, (method)scdownsampler_rate, "rate", A_FLOAT, 0);
+    class_addmethod(c, (method)scdownsampler_window, "window", A_FLOAT, 0);
+    class_addmethod(c, (method)scdownsampler_assist, "assist", A_CANT, 0);
     
     class_dspinit(c);
     class_register(CLASS_BOX, c);
-    colloquial_class = c;
+    scdownsampler_class = c;
 }
 
-void colloquial_perform64(t_colloquial *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+void scdownsampler_perform64(t_scdownsampler *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     t_double	*in = ins[0];
     t_double	*out = outs[0];
@@ -166,13 +166,13 @@ void colloquial_perform64(t_colloquial *x, t_object *dsp64, double **ins, long n
     }
 }
 
-void colloquial_dsp64(t_colloquial *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+void scdownsampler_dsp64(t_scdownsampler *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
-    dsp_add64(dsp64, (t_object *)x, (t_perfroutine64)colloquial_perform64, 0, NULL);
+    dsp_add64(dsp64, (t_object *)x, (t_perfroutine64)scdownsampler_perform64, 0, NULL);
     setSampleRate(x, samplerate);
 }
 
-void colloquial_assist(t_colloquial *x, void *b, long m, long a, char *s)
+void scdownsampler_assist(t_scdownsampler *x, void *b, long m, long a, char *s)
 {
     if (m == ASSIST_OUTLET) {
         sprintf(s,"(signal) Input");
@@ -184,9 +184,9 @@ void colloquial_assist(t_colloquial *x, void *b, long m, long a, char *s)
     }
 }
 
-void *colloquial_new()
+void *scdownsampler_new()
 {
-    t_colloquial *x = (t_colloquial*) object_alloc(colloquial_class);
+    t_scdownsampler *x = (t_scdownsampler*) object_alloc(scdownsampler_class);
     //  one signal input
     dsp_setup((t_pxobject *)x, 1);
     // no other inlets...
@@ -199,7 +199,7 @@ void *colloquial_new()
     return (x);
 }
 
-void colloquial_free(t_colloquial *x)
+void scdownsampler_free(t_scdownsampler *x)
 {
     dsp_free((t_pxobject *)x);
 }

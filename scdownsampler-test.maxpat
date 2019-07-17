@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 118.0, 134.0, 745.0, 527.0 ],
+		"rect" : [ 189.0, 176.0, 745.0, 527.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -39,30 +39,6 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-11",
-					"maxclass" : "number",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "bang" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 284.0, 244.0, 50.0, 22.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-7",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 284.0, 293.0, 65.0, 22.0 ],
-					"text" : "window $1"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-5",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -80,8 +56,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 153.0, 346.0, 66.0, 22.0 ],
-					"text" : "colloquial~"
+					"patching_rect" : [ 153.0, 346.0, 99.0, 22.0 ],
+					"text" : "scdownsampler~"
 				}
 
 			}
@@ -120,21 +96,21 @@
 								"selection" : [ 0.163461538461538, 0.653846153846154 ],
 								"loop" : 1,
 								"content_state" : 								{
-									"originallengthms" : [ 0.0 ],
-									"formant" : [ 1.0 ],
-									"timestretch" : [ 0 ],
-									"originallength" : [ 0.0, "ticks" ],
+									"originaltempo" : [ 120.0 ],
 									"pitchcorrection" : [ 0 ],
-									"play" : [ 0 ],
+									"timestretch" : [ 0 ],
+									"followglobaltempo" : [ 0 ],
+									"slurtime" : [ 0.0 ],
 									"basictuning" : [ 440 ],
 									"mode" : [ "basic" ],
-									"pitchshift" : [ 1.0 ],
-									"originaltempo" : [ 120.0 ],
-									"quality" : [ "basic" ],
 									"speed" : [ 1.0 ],
-									"slurtime" : [ 0.0 ],
+									"pitchshift" : [ 1.0 ],
 									"formantcorrection" : [ 0 ],
-									"followglobaltempo" : [ 0 ]
+									"formant" : [ 1.0 ],
+									"quality" : [ "basic" ],
+									"originallengthms" : [ 0.0 ],
+									"play" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
 								}
 
 							}
@@ -169,13 +145,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
-					"source" : [ "obj-11", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"source" : [ "obj-3", 0 ]
 				}
@@ -185,13 +154,6 @@
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"source" : [ "obj-5", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"source" : [ "obj-7", 0 ]
 				}
 
 			}
@@ -211,7 +173,7 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "colloquial~.mxo",
+				"name" : "scdownsampler~.mxo",
 				"type" : "iLaX"
 			}
  ],
