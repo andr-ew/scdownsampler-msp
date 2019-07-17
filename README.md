@@ -1,4 +1,4 @@
-softcut-msp
+scdownsampler-msp
 ========
 
 Real-time interpolated downsampler. uses library functions from softcut written by [ezra buchla](https://github.com/catfact)
