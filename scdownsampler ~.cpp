@@ -1,6 +1,5 @@
 /**
  @file
- softcut~ - MSP port of norns sofcut module
  
  @ingroup	ports
  */

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-               BuildableName = "colloquial~.mxo"
+               BuildableName = "scdownsampler~.mxo"
                BlueprintName = "scdownsampler~.mxo"
                ReferencedContainer = "container:scdownsampler~.xcodeproj">
             </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-            BuildableName = "colloquial~.mxo"
+            BuildableName = "scdownsampler~.mxo"
             BlueprintName = "scdownsampler~.mxo"
             ReferencedContainer = "container:scdownsampler~.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-            BuildableName = "colloquial~.mxo"
+            BuildableName = "scdownsampler~.mxo"
             BlueprintName = "scdownsampler~.mxo"
             ReferencedContainer = "container:scdownsampler~.xcodeproj">
          </BuildableReference>
